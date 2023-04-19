@@ -5,6 +5,7 @@ screen = pygame.display.set_mode((800, 600), 0)
 
 AMARELO = (255, 255, 0)
 PRETO = (0, 0, 0)
+VELOCIDADE = 1
 
 class Pacman:
     #Construtor de classe A função __init__() é usada para inicializar os atributos do objeto da classe.
@@ -44,13 +45,18 @@ class Pacman:
 
     def processar_eventos(self, eventos):
         for e in eventos:
+            #Movimentação do Pacman
             if e.type == pygame.KEYDOWN:
-                if e.key == pygame.K_RIGHT:
-                    self.velocidade_x = 1
+                if e.key == pygame.K_RIGHT: self.velocidade_x = VELOCIDADE
+                elif e.key == pygame.K_LEFT: self.velocidade_x = -VELOCIDADE
+                elif e.key == pygame.K_UP: self.velocidade_y = -VELOCIDADE
+                elif e.key == pygame.K_DOWN: self.velocidade_y = VELOCIDADE
             elif e.type == pygame.KEYUP:
-                    if e.key == pygame.K_RIGHT:
-                        self.velocidade_x = 0
-                        
+                if e.key == pygame.K_RIGHT: self.velocidade_x = 0
+                elif e.key == pygame.K_LEFT: self.velocidade_x = -0
+                elif e.key == pygame.K_UP: self.velocidade_y = -0
+                elif e.key == pygame.K_DOWN: self.velocidade_y = 0
+
 
 
 
