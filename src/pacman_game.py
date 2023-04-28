@@ -1,8 +1,8 @@
 import pygame
 import pacman_boneco
 import mapa
-from pacman_boneco import Pacman
-from mapa import Cenario
+from pacman_boneco import *
+from mapa import *
 
 pygame.init()
 screen = pygame.display.set_mode((600, 600), 0)
@@ -25,6 +25,8 @@ if __name__ == "__main__":
         pacman.pintar(screen)
         pygame.display.update()
         pygame.time.delay(100)
+        if pacman.corpo.colliderect(cenario.parede):
+            pacman.colidiu = True
 
         #Captura de eventos
         eventos =  pygame.event.get()

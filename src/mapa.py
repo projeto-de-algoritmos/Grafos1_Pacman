@@ -1,4 +1,8 @@
 import pygame
+import pacman_boneco
+from pacman_boneco import *
+
+pacman = Pacman(20)
 
 AMARELO = (255, 255, 0)
 PRETO = (0, 0, 0)
@@ -6,6 +10,7 @@ AZUL = (0, 0, 255)
 
 class Cenario:
     def __init__(self, tamanho):
+        self.parede = pygame.Rect(0, 0, tamanho, tamanho)
         self.tamanho = tamanho
         self.matriz = [
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -46,8 +51,9 @@ class Cenario:
             
             cor = PRETO
             if coluna == 0: cor = AZUL
-            pygame.draw.rect(tela, cor, (x, y, self.tamanho, self.tamanho), 0) #(x,y)= posição de onde vai ser o retangulo, self.tamanho = tamanho do retangulo
+            self.parede = pygame.Rect(x, y, self.tamanho, self.tamanho) #criar um retangulo
+            pygame.draw.rect(tela, cor, self.parede, 0) #(x,y)= posição de onde vai ser o retangulo, self.tamanho = tamanho do retangulo
  
     def pintar(self, tela):
         for numero_linha, linha in enumerate(self.matriz): #numero_linha = conteudo da linha, linha = posição da linha, função enumerate devolve a posição e o valor 
-            self.pintar_linha(tela, numero_linha, linha)
+            self.pintar_linha(tela, numero_linha, linha)        

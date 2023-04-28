@@ -16,6 +16,8 @@ class Pacman:
         self.velocidade_y = 0
         self.tamanho = tamanho #Tamanho da tela pela quantidade de colunas
         self.raio = int(self.tamanho/2)
+        self.colidiu = False
+        self.corpo = pygame.Rect(self.centro_x, self.centro_y, self.centro_x, self.centro_y)
     
     def calcular_regras(self):
         #Movimentação 
@@ -44,10 +46,26 @@ class Pacman:
         for e in eventos:
             #Movimentação do Pacman
             if e.type == pygame.KEYDOWN:
-                if e.key == pygame.K_RIGHT: self.velocidade_x = VELOCIDADE
-                elif e.key == pygame.K_LEFT: self.velocidade_x = -VELOCIDADE
-                elif e.key == pygame.K_UP: self.velocidade_y = -VELOCIDADE
-                elif e.key == pygame.K_DOWN: self.velocidade_y = VELOCIDADE
+                if e.key == pygame.K_RIGHT: 
+                    if self.colidiu == True:
+                        self.velocidade_x = 0
+                    else:
+                        self.velocidade_x = VELOCIDADE
+                elif e.key == pygame.K_LEFT:
+                    if self.colidiu == True:
+                        self.velocidade_x = -0 
+                    else:    
+                        self.velocidade_x = -VELOCIDADE
+                elif e.key == pygame.K_UP:
+                    if self.colidiu == True:
+                        self.velocidade_y = -0 
+                    else:    
+                        self.velocidade_y = -VELOCIDADE
+                elif e.key == pygame.K_DOWN:
+                    if self.colidiu == True:
+                        self.velocidade_y = 0 
+                    else:    
+                        self.velocidade_y = VELOCIDADE
             elif e.type == pygame.KEYUP:
                 if e.key == pygame.K_RIGHT: self.velocidade_x = 0
                 elif e.key == pygame.K_LEFT: self.velocidade_x = -0
