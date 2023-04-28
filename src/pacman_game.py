@@ -4,9 +4,8 @@ import mapa
 from pacman_boneco import Pacman
 from mapa import Cenario
 
-
 pygame.init()
-screen = pygame.display.set_mode((800, 600), 0)
+screen = pygame.display.set_mode((600, 600), 0)
 
 PRETO = (0, 0, 0)
 

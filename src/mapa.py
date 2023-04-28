@@ -1,12 +1,14 @@
 import pygame
+
 AMARELO = (255, 255, 0)
 PRETO = (0, 0, 0)
 AZUL = (0, 0, 255)
+
 class Cenario:
     def __init__(self, tamanho):
         self.tamanho = tamanho
         self.matriz = [
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
             [0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0],
             [0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0],
@@ -36,16 +38,16 @@ class Cenario:
             [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         ]
+
     def pintar_linha(self, tela, numero_linha, linha):
-        for numero_coluna, coluna in enumerate(linha):
-            x = numero_coluna * self.tamanho
+        for numero_coluna, coluna in enumerate(linha): # pegar os valores da coluna na linha
+            x = numero_coluna * self.tamanho #self.tamanho pode ser o tamanho do no
             y = numero_linha * self.tamanho
-            metade = self.tamanho // 2
+            
             cor = PRETO
             if coluna == 0: cor = AZUL
-            pygame.draw.rect(tela, cor, (x, y, self.tamanho, self.tamanho), 0)
-            if coluna == 1: pygame.draw.circle(tela, AMARELO, (x + metade, y+metade), self.tamanho // 10, 0)
+            pygame.draw.rect(tela, cor, (x, y, self.tamanho, self.tamanho), 0) #(x,y)= posição de onde vai ser o retangulo, self.tamanho = tamanho do retangulo
  
     def pintar(self, tela):
-        for numero_linha, linha in enumerate(self.matriz):
+        for numero_linha, linha in enumerate(self.matriz): #numero_linha = conteudo da linha, linha = posição da linha, função enumerate devolve a posição e o valor 
             self.pintar_linha(tela, numero_linha, linha)
