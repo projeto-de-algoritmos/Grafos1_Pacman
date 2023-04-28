@@ -7,14 +7,14 @@ VELOCIDADE = 1
 class Pacman:
     #Construtor de classe A função __init__() é usada para inicializar os atributos do objeto da classe.
     # O parâmetro self é uma referência ao objeto que está sendo criado e é usado para acessar seus atributos e métodos.
-    def __init__(self):
+    def __init__(self, tamanho):
         self.coluna = 1
         self.linha = 1
         self.centro_x = 400
         self.centro_y = 300
         self.velocidade_x = 0
         self.velocidade_y = 0
-        self.tamanho = 800 // 30 #Tamanho da tela pela quantidade de colunas
+        self.tamanho = tamanho #Tamanho da tela pela quantidade de colunas
         self.raio = int(self.tamanho/2)
     
     def calcular_regras(self):

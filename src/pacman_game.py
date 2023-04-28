@@ -2,6 +2,7 @@ import pygame
 import pacman_boneco
 import mapa
 from pacman_boneco import Pacman
+from mapa import Cenario
 
 
 pygame.init()
@@ -11,7 +12,9 @@ PRETO = (0, 0, 0)
 
 #verificar se esta iniciando o programa main
 if __name__ == "__main__":
-    pacman = Pacman()
+    size = 600 // 30
+    pacman = Pacman(size)
+    cenario = Cenario(size)
     # Loop do jogo
     while True: 
         #Calcular regras
@@ -19,6 +22,7 @@ if __name__ == "__main__":
 
         #Pintar a tela
         screen.fill(PRETO)
+        cenario.pintar(screen)
         pacman.pintar(screen)
         pygame.display.update()
         pygame.time.delay(100)
@@ -29,3 +33,4 @@ if __name__ == "__main__":
             if e.type == pygame.QUIT:
                 exit()
         pacman.processar_eventos(eventos)   
+ 
