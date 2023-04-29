@@ -18,6 +18,10 @@ class Cell  :
 
     
 class ShortestPathBetweenCellsBFS :
+    def __init__(self, tamanho, matrix):
+        self.tamanho = tamanho
+        self.matriz = matrix
+
     #BFS, Time O(n^2), Space O(n^2)
     def shortestPath(self, tamanho, tela, matrix, start, end) :
         tam = tamanho
@@ -74,12 +78,8 @@ class ShortestPathBetweenCellsBFS :
             p = dest
             while p != None :
                 path.insert(0, p)	      
-                p = p.prev
-                print(path)	       
-            for i in path:
-                print(i)	       
-
-
+                p = p.prev      
+            return path    
 	
 	#function to update cell visiting status, Time O(1), Space O(1)
     def visit(self, cells, queue, x, y, parent) :		
@@ -93,24 +93,18 @@ class ShortestPathBetweenCellsBFS :
             p.dist = dist
             p.prev = parent
             queue.append(p)
-
-class Cenario:
-    def __init__(self, tamanho, matrix):
-        self.tamanho = tamanho
-        self.matriz = matrix
-        
     def pintar_linha(self, tela, numero_linha, linha):
         for numero_coluna, coluna in enumerate(linha): # pegar os valores da coluna na linha
             x = numero_coluna * self.tamanho #self.tamanho pode ser o tamanho do no
             y = numero_linha * self.tamanho
-            
             cor = PRETO
             if coluna == 0: cor = AZUL
             pygame.draw.rect(tela, cor, (x, y, self.tamanho, self.tamanho), 0) #(x,y)= posição de onde vai ser o retangulo, self.tamanho = tamanho do retangulo
- 
+            
     def pintar(self, tela):
         for numero_linha, linha in enumerate(self.matriz): #numero_linha = conteudo da linha, linha = posição da linha, função enumerate devolve a posição e o valor 
-            self.pintar_linha(tela, numero_linha, linha)            
+            self.pintar_linha(tela, numero_linha, linha) 
+                       
 matrix = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
@@ -147,33 +141,30 @@ matrix = [
 pygame.init()
 screen = pygame.display.set_mode((600, 600), 0)
 
-
-
 #verificar se esta iniciando o programa main
 if __name__ == "__main__":
 
     size = 600 // 30
-    #pacman = Pacman(size)
-    cenario = Cenario(size, matrix)
-
-    myObj = ShortestPathBetweenCellsBFS()   
+    myObj = ShortestPathBetweenCellsBFS(size, matrix)   
     #Test 
     start1 = [1, 1]
     end1 = [27, 5]
-    print("case: ")
-    myObj.shortestPath(size, screen, matrix, start1, end1)
     
+    # AQUI QUE TA O CAMINHO DAS PEDRAS
+    teste = []
+    teste = myObj.shortestPath(size, screen, matrix, start1, end1)
+    for i in teste:
+           print(i)
+
     # Loop do jogo
     while True: 
-        #Calcular regras
-        #pacman.calcular_regras()
-        
         #Pintar a tela
         screen.fill(PRETO)
-        cenario.pintar(screen)
-        #pacman.pintar(screen)
+        myObj.pintar(screen)
         pygame.display.update()
-        pygame.time.delay(100)
+        #myObj.shortestPath(size, screen, matrix, start1, end1)
+        #pygame.display.update()
+        pygame.time.delay(1000)
 
         #Captura de eventos
         eventos =  pygame.event.get()
