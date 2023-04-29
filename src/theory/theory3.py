@@ -1,33 +1,38 @@
 import sys
 import queue
 import pygame
+AMARELO = (255, 255, 0)
+PRETO = (0, 0, 0)
+AZUL = (0, 0, 255)
+BRANCO = (255, 255, 255)
+VERMELHO = (255, 0, 0)
 
 class Cell  :
-    def __init__(self, x, y, dist, prev) :#Definir as propriedades iniciais do objeto
+    def __init__(self, x, y, dist, prev) :
         self.x = x # Linha
         self.y = y # Coluna
-        self.dist = dist; # Distancia dessa celula ate a celula de inicio
-        self.prev = prev; # Ultima celula visitada(parent cell)
+        self.dist = dist; #distance to start
+        self.prev = prev; #parent cell in the path
     def __str__(self): #Printar como uma string
         return "("+ str(self.x) + "," + str(self.y) + ")" 
 
     
 class ShortestPathBetweenCellsBFS :
-
     #BFS, Time O(n^2), Space O(n^2)
-    def shortestPath(self, matrix, start, end) :
+    def shortestPath(self, tamanho, tela, matrix, start, end) :
+        tam = tamanho
         sx = start[0]
         sy = start[1]
         dx = end[0]
         dy = end[1]
 		#if start or end value is 0, return
-        if matrix[sx][sy] == 0 or matrix[dx][dy] == 0 : #se o inicio ou o fim forem 0 ela ja para
+        if matrix[sx][sy] == 0 or matrix[dx][dy] == 0 :
             print("There is no path.")
             return  
 		#initialize the cells 
         m = len(matrix)
         n = len(matrix[0])    
-        cells = [] #Boolean array
+        cells = []
         for i in range (0, m) :
             row = []
             for j in range(0, n) :               
@@ -37,7 +42,7 @@ class ShortestPathBetweenCellsBFS :
                     row.append(None)
             cells.append(row) 
 	    #breadth first search
-        queue = [] #Cria a fila vazia
+        queue = []     
         src = cells[sx][sy]
         src.dist = 0
         queue.append(src)
@@ -60,7 +65,6 @@ class ShortestPathBetweenCellsBFS :
                 p = queue.pop(0)
             else:
                 p = None       
-                self.draw(cells) #  MUDEI AQUI <---------------------
 	    #compose the path if path exists
         if dest == None :
             print("there is no path.")
@@ -70,9 +74,12 @@ class ShortestPathBetweenCellsBFS :
             p = dest
             while p != None :
                 path.insert(0, p)	      
-                p = p.prev	       
+                p = p.prev
+                print(path)	       
             for i in path:
-                print(i)
+                print(i)	       
+
+
 	
 	#function to update cell visiting status, Time O(1), Space O(1)
     def visit(self, cells, queue, x, y, parent) :		
@@ -86,8 +93,24 @@ class ShortestPathBetweenCellsBFS :
             p.dist = dist
             p.prev = parent
             queue.append(p)
-             # Pintando a posição atual em que a BFS está
-           
+
+class Cenario:
+    def __init__(self, tamanho, matrix):
+        self.tamanho = tamanho
+        self.matriz = matrix
+        
+    def pintar_linha(self, tela, numero_linha, linha):
+        for numero_coluna, coluna in enumerate(linha): # pegar os valores da coluna na linha
+            x = numero_coluna * self.tamanho #self.tamanho pode ser o tamanho do no
+            y = numero_linha * self.tamanho
+            
+            cor = PRETO
+            if coluna == 0: cor = AZUL
+            pygame.draw.rect(tela, cor, (x, y, self.tamanho, self.tamanho), 0) #(x,y)= posição de onde vai ser o retangulo, self.tamanho = tamanho do retangulo
+ 
+    def pintar(self, tela):
+        for numero_linha, linha in enumerate(self.matriz): #numero_linha = conteudo da linha, linha = posição da linha, função enumerate devolve a posição e o valor 
+            self.pintar_linha(tela, numero_linha, linha)            
 matrix = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
@@ -119,10 +142,43 @@ matrix = [
     [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     ]
-myObj = ShortestPathBetweenCellsBFS(matrix)   
 
-#Test 
-start1 = [1, 1]
-end1 = [27, 5]
-print("case: ")
-myObj.shortestPath(matrix, start1, end1)
+#Começando o pygame
+pygame.init()
+screen = pygame.display.set_mode((600, 600), 0)
+
+
+
+#verificar se esta iniciando o programa main
+if __name__ == "__main__":
+
+    size = 600 // 30
+    #pacman = Pacman(size)
+    cenario = Cenario(size, matrix)
+
+    myObj = ShortestPathBetweenCellsBFS()   
+    #Test 
+    start1 = [1, 1]
+    end1 = [27, 5]
+    print("case: ")
+    myObj.shortestPath(size, screen, matrix, start1, end1)
+    
+    # Loop do jogo
+    while True: 
+        #Calcular regras
+        #pacman.calcular_regras()
+        
+        #Pintar a tela
+        screen.fill(PRETO)
+        cenario.pintar(screen)
+        #pacman.pintar(screen)
+        pygame.display.update()
+        pygame.time.delay(100)
+
+        #Captura de eventos
+        eventos =  pygame.event.get()
+        for e in eventos:
+            if e.type == pygame.QUIT:
+                exit()
+        #pacman.processar_eventos(eventos)   
+ 
