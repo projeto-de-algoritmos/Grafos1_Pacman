@@ -129,7 +129,7 @@ class Fruta :
     def __init__(self, tamanho):
         self.tamanho = tamanho
 
-    def pintar_fruta(self, tela, matriz):
+    def mover_fruta(self, matriz):
         candidatos = []  # Lista para armazenar as posições candidatas para a fruta
         
         for i in range(len(matriz)):
@@ -138,11 +138,14 @@ class Fruta :
                     candidatos.append((i, j))  # Adiciona a posição à lista de candidatos
         
         if candidatos:
-            cor = AMARELO
             self.x_fruta, self.y_fruta = random.choice(candidatos)  # Escolhe aleatoriamente uma posição da lista de candidatos
-            self.retangulo_fruta = (self.x_fruta * self.tamanho, self.y_fruta * self.tamanho, self.tamanho, self.tamanho)
-            pygame.draw.rect(tela, cor, (self.retangulo_fruta), 0)
+            self.retangulo_fruta = (self.y_fruta * self.tamanho, self.x_fruta * self.tamanho, self.tamanho//2, self.tamanho//2)
             print(self.x_fruta, self.y_fruta)
+
+
+    def pintar_fruta(self, tela):
+        cor = AMARELO
+        pygame.draw.rect(tela, cor, self.retangulo_fruta, 0)
 
                        
 

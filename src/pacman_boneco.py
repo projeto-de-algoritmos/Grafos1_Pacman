@@ -18,6 +18,8 @@ class Pacman:
         self.raio = int(self.tamanho/2)
         self.coluna_intencao = self.coluna
         self.linha_intencao = self.linha
+        self.retangulo_pacman = pygame.Rect(self.centro_x - self.raio, self.centro_y - self.raio, self.raio * 2, self.raio * 2)
+
 
         self.colidiu = False
     
@@ -27,6 +29,7 @@ class Pacman:
         self.linha_intencao += self.velocidade_y
         self.centro_x = int(self.coluna * self.tamanho + self.raio)
         self.centro_y = int(self.linha * self.tamanho + self.raio)
+        self.retangulo_pacman.center = (self.centro_x, self.centro_y)
      
 
     def pintar(self, tela):
@@ -43,6 +46,8 @@ class Pacman:
         olho_y = int(self.centro_y - self.raio * 0.75)
         olho_raio = int(self.raio/10)
         pygame.draw.circle(tela, PRETO, (olho_x, olho_y), olho_raio, 0)
+
+        pygame.draw.rect(tela, (0, 255, 0), self.retangulo_pacman, 2)
 
     def processar_eventos(self, eventos):
         for e in eventos:
