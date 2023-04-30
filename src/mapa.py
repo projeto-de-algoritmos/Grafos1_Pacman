@@ -1,5 +1,6 @@
 import sys
 import queue
+import random
 import pygame
 AMARELO = (255, 255, 0)
 PRETO = (0, 0, 0)
@@ -81,17 +82,18 @@ class ShortestPathBetweenCellsBFS :
             return path    
 	
 	#function to update cell visiting status, Time O(1), Space O(1)
-    def visit(self, cells, queue, x, y, parent) :		
+    def visit(self, cells, queue, x, y, parent):		
         #out of boundary
-        if x < 0 or x >= len(cells) or y < 0 or y >= len(cells[0]) or cells[x][y] == None :
-	        return
-	    #update distance, and previous node
+        if x < 0 or x >= len(cells) or y < 0 or y >= len(cells[0]) or cells[x][y] == None:
+            return
+        #update distance, and previous node
         dist = parent.dist + 1
         p = cells[x][y]
-        if dist < p.dist :
+        if dist < p.dist:
             p.dist = dist
             p.prev = parent
             queue.append(p)
+
     def pintar_linha(self, tela, numero_linha, linha):
         for numero_coluna, coluna in enumerate(linha): # pegar os valores da coluna na linha
             x = numero_coluna * self.tamanho #self.tamanho pode ser o tamanho do no
@@ -103,6 +105,31 @@ class ShortestPathBetweenCellsBFS :
     def pintar(self, tela):
         for numero_linha, linha in enumerate(self.matriz): #numero_linha = conteudo da linha, linha = posição da linha, função enumerate devolve a posição e o valor 
             self.pintar_linha(tela, numero_linha, linha) 
+
+    
+class Fruta :
+    #recebe como paametro o tamanho da celula, a matriz
+    def __init__(self, tamanho):
+        self.tamanho = tamanho
+        self.x_fruta = 1
+        self.y_fruta = 1
+
+    def pintar_fruta(self, tela, matriz):
+        candidatos = []  # Lista para armazenar as posições candidatas para a fruta
+        
+        for i in range(len(matriz)):
+            for j in range(len(matriz[i])):
+                if matriz[i][j] == 1:
+                    candidatos.append((i, j))  # Adiciona a posição à lista de candidatos
+        
+        if candidatos:
+            cor = VERMELHO
+            self.x_fruta, self.y_fruta = random.choice(candidatos)  # Escolhe aleatoriamente uma posição da lista de candidatos
+            # self.x_fruta = self.x_fruta * tamanho_celula  # Posição X do círculo
+            # self.y_fruta = self.y_fruta * tamanho_celula  # Posição Y do círculo
+            pygame.draw.rect(tela, cor, (self.x_fruta, self.y_fruta, self.tamanho, self.tamanho), 0)
+            print(self.x_fruta, self.y_fruta)
+
                        
 
 

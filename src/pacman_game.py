@@ -50,16 +50,19 @@ if __name__ == "__main__":
 
     size = 600 // 30
     pacman = Pacman(size)
+    fruta = Fruta(size)
 
     #NEW
     myObj = ShortestPathBetweenCellsBFS(size, matrix) 
     #Test 
     start1 = [1, 1]
-    end1 = [27, 5]
+    end1 = [27, 26]
     # AQUI QUE TA O CAMINHO DAS PEDRAS
     teste = []
     teste = myObj.shortestPath(matrix, start1, end1)
 
+
+    fruta.pintar_fruta(screen, matrix)
     # Loop do jogo
     while True: 
         #Calcular regras
