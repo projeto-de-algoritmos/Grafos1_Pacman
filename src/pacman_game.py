@@ -9,6 +9,8 @@ AZUL = (0, 0, 255)
 BRANCO = (255, 255, 255)
 VERMELHO = (255, 0, 0)
 
+pygame.display.set_caption('PACMAN')
+
 matrix = [
     #0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],#0
@@ -88,6 +90,8 @@ if __name__ == "__main__":
             if e.type == pygame.QUIT:
                 exit()
             elif e.type == pygame.KEYUP:
+                if pacman.retangulo_pacman.colliderect(myObj.parede):
+                    pacman.colidiu = True
                 if e.key == pygame.K_p:
                     for i in teste:
                         pygame.draw.rect(screen, VERMELHO, ((i.y * size), (i.x * size), size, size), 0) #(x,y)= posição de onde vai ser o retangulo, self.tamanho = tamanho do retangulo
@@ -101,10 +105,15 @@ if __name__ == "__main__":
                             end1 = [fruta.x_fruta, fruta.y_fruta]
                             teste = myObj.shortestPath(matrix, start1, end1)
                             pygame.display.update()
-                        elif pacman.retangulo_pacman.colliderect(pygame.Rect(fruta.retangulo_fruta)):
-                            print("colidiu")
-                            fruta.pintar_fruta(screen)
-                            pygame.display.update()
-        
+                elif pacman.retangulo_pacman.colliderect(pygame.Rect(fruta.retangulo_fruta)):
+                    print("colidiu")
+                    fruta.pintar_fruta(screen)
+                    pygame.display.update()
+                    start1 = [fruta.x_fruta, fruta.y_fruta]
+                    fruta.mover_fruta(matrix)
+                    end1 = [fruta.x_fruta, fruta.y_fruta]
+                    teste = myObj.shortestPath(matrix, start1, end1)
+                    pygame.display.update()
+
         pacman.processar_eventos(eventos)   
  

@@ -103,7 +103,8 @@ class ShortestPathBetweenCellsBFS :
             y = numero_linha * self.tamanho
             cor = PRETO
             if coluna == 0: cor = AZUL
-            pygame.draw.rect(tela, cor, (x, y, self.tamanho, self.tamanho), 0) #(x,y)= posição de onde vai ser o retangulo, self.tamanho = tamanho do retangulo
+            self.parede = (x, y, self.tamanho, self.tamanho)
+            pygame.draw.rect(tela, cor, (self.parede), 0) #(x,y)= posição de onde vai ser o retangulo, self.tamanho = tamanho do retangulo
             
 
     def pintar(self, tela):

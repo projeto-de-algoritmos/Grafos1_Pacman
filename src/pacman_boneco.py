@@ -18,7 +18,7 @@ class Pacman:
         self.raio = int(self.tamanho/2)
         self.coluna_intencao = self.coluna
         self.linha_intencao = self.linha
-        self.retangulo_pacman = pygame.Rect(self.centro_x - self.raio, self.centro_y - self.raio, self.raio * 2, self.raio * 2)
+        self.retangulo_pacman = pygame.Rect(self.centro_x, self.centro_y, self.raio * 2, self.raio * 2)
 
 
         self.colidiu = False
@@ -47,7 +47,7 @@ class Pacman:
         olho_raio = int(self.raio/10)
         pygame.draw.circle(tela, PRETO, (olho_x, olho_y), olho_raio, 0)
 
-        pygame.draw.rect(tela, (0, 255, 0), self.retangulo_pacman, 2)
+        pygame.draw.rect(tela, PRETO, self.retangulo_pacman, 2)
 
     def processar_eventos(self, eventos):
         for e in eventos:
@@ -78,6 +78,7 @@ class Pacman:
                 elif e.key == pygame.K_LEFT: self.velocidade_x = -0
                 elif e.key == pygame.K_UP: self.velocidade_y = -0
                 elif e.key == pygame.K_DOWN: self.velocidade_y = 0
+            self.colidiu = False
 
     def aceitar_movimento(self):
         self.linha = self.linha_intencao
