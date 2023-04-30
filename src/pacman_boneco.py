@@ -16,12 +16,15 @@ class Pacman:
         self.velocidade_y = 0
         self.tamanho = tamanho #Tamanho da tela pela quantidade de colunas
         self.raio = int(self.tamanho/2)
+        self.coluna_intencao = self.coluna
+        self.linha_intencao = self.linha
+
         self.colidiu = False
     
     def calcular_regras(self):
         #Movimentação 
-        self.coluna += self.velocidade_x
-        self.linha += self.velocidade_y
+        self.coluna_intencao += self.velocidade_x
+        self.linha_intencao += self.velocidade_y
         self.centro_x = int(self.coluna * self.tamanho + self.raio)
         self.centro_y = int(self.linha * self.tamanho + self.raio)
      
@@ -71,4 +74,6 @@ class Pacman:
                 elif e.key == pygame.K_UP: self.velocidade_y = -0
                 elif e.key == pygame.K_DOWN: self.velocidade_y = 0
 
-
+    def aceitar_movimento(self):
+        self.linha = self.linha_intencao
+        self.coluna = self.coluna_intencao

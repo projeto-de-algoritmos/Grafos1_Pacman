@@ -2,6 +2,7 @@ import sys
 import queue
 import random
 import pygame
+from pacman_boneco import *
 AMARELO = (255, 255, 0)
 PRETO = (0, 0, 0)
 AZUL = (0, 0, 255)
@@ -19,9 +20,11 @@ class Cell  :
 
     
 class ShortestPathBetweenCellsBFS :
-    def __init__(self, tamanho, matrix):
+    def __init__(self, tamanho, matrix, pac):
+        self.pacman = pac
         self.tamanho = tamanho
         self.matriz = matrix
+        #self.pontos = 0 contabilizar pontos
 
     #BFS, Time O(n^2), Space O(n^2)
     def shortestPath(self, matrix, start, end) :
@@ -106,8 +109,21 @@ class ShortestPathBetweenCellsBFS :
     def pintar(self, tela):
         for numero_linha, linha in enumerate(self.matriz): #numero_linha = conteudo da linha, linha = posição da linha, função enumerate devolve a posição e o valor 
             self.pintar_linha(tela, numero_linha, linha) 
-
     
+    pacman = Pacman(600 // 30)
+
+    def calcular_regras(self, matriz):
+        self.matriz = matriz
+        col = self.pacman.coluna_intencao
+        lin = self.pacman.linha_intencao
+        if col >= 0 and col <= 27 and 0 <= lin <= 28:
+            if self.matriz[lin][col] == 1:
+                self.pacman.aceitar_movimento()
+                
+                #if self.matriz[lin][col] == 5: contabilizar movimentos e tirar as comidas
+                #   self.pontos += 1
+                #   self.matriz[lin][col] = 0
+
 class Fruta :
     #recebe como paametro o tamanho da celula, a matriz
     def __init__(self, tamanho):

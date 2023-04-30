@@ -55,7 +55,7 @@ if __name__ == "__main__":
     contador_iniciar = 0
 
     #NEW
-    myObj = ShortestPathBetweenCellsBFS(size, matrix) 
+    myObj = ShortestPathBetweenCellsBFS(size, matrix, pacman) 
     #Test 
     start1 = [1, 1]
     end1 = [27, 26]
@@ -69,9 +69,10 @@ if __name__ == "__main__":
     while True: 
         #Calcular regras
         pacman.calcular_regras()
+        myObj.calcular_regras(matrix)
 
         #Pintar a tela
-        screen.fill(PRETO)
+        #screen.fill(PRETO)
         myObj.pintar(screen)
         pacman.pintar(screen)
         pygame.display.update()
@@ -80,7 +81,7 @@ if __name__ == "__main__":
         if contador_iniciar == 1:  
             fruta.pintar_fruta(screen, matrix)
             pygame.display.update()
-            pygame.time.wait(200)
+            #pygame.time.wait(200)
             print(contador_iniciar)
             print("iniciou")
 
