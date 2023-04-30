@@ -102,6 +102,7 @@ class ShortestPathBetweenCellsBFS :
             if coluna == 0: cor = AZUL
             pygame.draw.rect(tela, cor, (x, y, self.tamanho, self.tamanho), 0) #(x,y)= posição de onde vai ser o retangulo, self.tamanho = tamanho do retangulo
             
+
     def pintar(self, tela):
         for numero_linha, linha in enumerate(self.matriz): #numero_linha = conteudo da linha, linha = posição da linha, função enumerate devolve a posição e o valor 
             self.pintar_linha(tela, numero_linha, linha) 
@@ -111,8 +112,6 @@ class Fruta :
     #recebe como paametro o tamanho da celula, a matriz
     def __init__(self, tamanho):
         self.tamanho = tamanho
-        self.x_fruta = 1
-        self.y_fruta = 1
 
     def pintar_fruta(self, tela, matriz):
         candidatos = []  # Lista para armazenar as posições candidatas para a fruta
@@ -123,11 +122,10 @@ class Fruta :
                     candidatos.append((i, j))  # Adiciona a posição à lista de candidatos
         
         if candidatos:
-            cor = VERMELHO
+            cor = AMARELO
             self.x_fruta, self.y_fruta = random.choice(candidatos)  # Escolhe aleatoriamente uma posição da lista de candidatos
-            # self.x_fruta = self.x_fruta * tamanho_celula  # Posição X do círculo
-            # self.y_fruta = self.y_fruta * tamanho_celula  # Posição Y do círculo
-            pygame.draw.rect(tela, cor, (self.x_fruta, self.y_fruta, self.tamanho, self.tamanho), 0)
+            self.retangulo_fruta = (self.x_fruta * self.tamanho, self.y_fruta * self.tamanho, self.tamanho, self.tamanho)
+            pygame.draw.rect(tela, cor, (self.retangulo_fruta), 0)
             print(self.x_fruta, self.y_fruta)
 
                        

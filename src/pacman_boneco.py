@@ -17,7 +17,6 @@ class Pacman:
         self.tamanho = tamanho #Tamanho da tela pela quantidade de colunas
         self.raio = int(self.tamanho/2)
         self.colidiu = False
-        self.corpo = pygame.Rect(self.centro_x, self.centro_y, self.centro_x, self.centro_y)
     
     def calcular_regras(self):
         #Movimentação 
