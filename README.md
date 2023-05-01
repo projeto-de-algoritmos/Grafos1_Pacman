@@ -20,6 +20,14 @@ Figura 2: Computador fazendo busca em largura (BFS)<br><br>
 ![Terminal](https://cdn.discordapp.com/attachments/869268773130092544/1102663550041849928/Captura_de_Tela_2023-05-01_as_15.27.47.png)<br><br>
 Figura 3: Printando colisões e posições da matriz
 
+# Gravação da entrega do projeto<br>
+
+## Link para ver no youtube
+https://youtu.be/A-Fa4E4pAVk
+
+## Link para download
+https://github.com/projeto-de-algoritmos/Grafos1_Pacman/blob/master/gravacao-entrega-1.mp4
+
 ## Instalação 
 **Linguagem**: Python<br>
 Descreva os pré-requisitos para rodar o seu projeto e os comandos necessários.
