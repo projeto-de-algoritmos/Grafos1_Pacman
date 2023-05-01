@@ -10,23 +10,27 @@
 | 19/0088745  |  Iago de Paula Cabral |
 
 ## Sobre 
-O projeto consiste em um jogo do Pacman que utiliza grafos e busca em profundidade para implementar a mecânica do jogo. O objetivo do jogo é o jogador guiar o Pacman através de um labirinto, onde existem fantasmas bloqueando algumas passagens. O jogador deve coletar todas as comidinhas do mapa, marcando as células visitadas pelo Pacman. Se o jogador pisar em uma célula já visitada, o jogo reinicia. Além disso, o jogo possui um modo computador que utiliza uma busca em profundidade para encontrar o menor caminho até o próximo safe point.
+O projeto consiste em um jogo do Pacman que utiliza grafos e busca em largura para implementar a mecânica do jogo. O objetivo do jogo é o jogador guiar o Pacman através de um labirinto. O jogador deve coletar as frutas do mapa. Além disso, o jogo possui um modo computador que utiliza uma busca em largura para encontrar o menor caminho até a próxima fruta.
 
 ## Screenshots
-Adicione 3 ou mais screenshots do projeto em funcionamento.
+![Pacma](https://cdn.discordapp.com/attachments/869268773130092544/1102663288334078012/Captura_de_Tela_2023-05-01_as_15.26.47.png)<br><br>
+Figura 1: Modo Player<br><br>
+![Computador](https://cdn.discordapp.com/attachments/869268773130092544/1102663505775181936/Captura_de_Tela_2023-05-01_as_15.27.20.png)<br><br>
+Figura 2: Computador fazendo busca em largura (BFS)<br><br>
+![Terminal](https://cdn.discordapp.com/attachments/869268773130092544/1102663550041849928/Captura_de_Tela_2023-05-01_as_15.27.47.png)<br><br>
+Figura 3: Printando colisões e posições da matriz
 
 ## Instalação 
 **Linguagem**: Python<br>
 Descreva os pré-requisitos para rodar o seu projeto e os comandos necessários.
 Necessário instalar o Pygame.
-> pip install pygame
+> pip install pygame <br>
+
+Para executar o jogo: 
+> python3 pacman_game.py
 
 ## Uso 
-Após a execução do jogo, o jogador deve guiar o Pacman através do labirinto utilizando as teclas de direção do teclado. O objetivo é coletar todas as comidinhas do mapa sem pisar em células já visitadas. Se o jogador pisar em uma célula já visitada, o jogo reinicia. O modo computador pode ser acessado pressionando a tecla "C". Nesse modo, o jogo utiliza uma busca em profundidade para encontrar o menor caminho até o próximo safe point. O caminho encontrado é exibido na tela.
-
-## Outros 
-Quaisquer outras informações sobre seu projeto podem ser descritas abaixo.
-
+Após a execução do jogo, o jogador deve guiar o Pacman através do labirinto utilizando as teclas de direção do teclado. O objetivo é coletar as frutas que aparecerem no mapa. O modo computador pode ser acessado pressionando a tecla "P". Nesse modo, o jogo utiliza uma busca em largura para encontrar o menor caminho até a próxima fruta. O rastro do caminho encontrado é exibido na tela.
 
 
 
